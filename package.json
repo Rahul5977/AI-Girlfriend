@@ -22,12 +22,18 @@
   },
   "homepage": "https://github.com/Rahul5977/AI-Girlfriend#readme",
   "dependencies": {
+    "@langchain/core": "^0.3.62",
+    "@langchain/langgraph": "^0.3.8",
+    "@langchain/openai": "^0.5.18",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.3"
+    "langchain": "^0.3.29",
+    "langsmith": "^0.3.43",
+    "mongoose": "^8.16.3",
+    "openai": "^5.9.0"
   }
 }

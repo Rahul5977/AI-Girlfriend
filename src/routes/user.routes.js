@@ -5,7 +5,8 @@ import {
   loginUser,
   forgotPassword,
   resetPassword,
-  verifyEmail
+  verifyEmail,
+  getUserProfile
 } from "../controllers/users.controllers.js";
 userRouter.post("/register", registerUser);
 userRouter.post("/login", loginUser);
