@@ -25,7 +25,8 @@ const GraphState = Annotation.Root({
   history: Annotation.Array(Annotation.Any()).optional(),
 });
 // 2. Define State Graph
-const graph = new StateGraph({channels: GraphState, 
+const graph = new StateGraph({
+  channels: GraphState,
   name: "AI Girlfriend",
   description: "A chatbot that responds based on the user's input tone.",
 });
@@ -92,26 +93,11 @@ graph.addEdge({
   output: { response: GraphState.response },
 });
 // 5. Define End Node
-graph.addEdge({
-  from: "sweet",
-  to: END,
-  input: { response: GraphState.response },
-  output: { messages: GraphState.messages },
-});
-graph.addEdge({
-  from: "romantic",
-  to: END,
-  input: { response: GraphState.response },
-  output: { messages: GraphState.messages },
-});
-graph.addEdge({
-  from: "rude",
-  to: END,
-  input: { response: GraphState.response },
-  output: { messages: GraphState.messages },
-});
+graph.addEdge({ from: "sweet", to: END });
+graph.addEdge({ from: "romantic", to: END });
+graph.addEdge({ from: "rude", to: END });
 //compile the graph
-const compiledGraph=graph.compile({
+const compiledGraph = graph.compile({
   input: GraphState.input,
   emotion: GraphState.emotion,
   response: GraphState.response,
