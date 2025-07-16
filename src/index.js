@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.send(`AI Girlfriend`);
 });
 app.use("/api/v1/user",userRouter);
-app.use("api/v1/chat", chatRouter);
+app.use("api/v1/chat", chatRouter); 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
