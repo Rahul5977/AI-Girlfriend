@@ -93,9 +93,9 @@ graph.addEdge({
   output: { response: GraphState.response },
 });
 // 5. Define End Node
-graph.addEdge({ from: "sweet", to: END });
-graph.addEdge({ from: "romantic", to: END });
-graph.addEdge({ from: "rude", to: END });
+graph.addEdge({ from: "sweet", to: "classify" });
+graph.addEdge({ from: "romantic", to: "classify" });
+graph.addEdge({ from: "rude", to: "classify" });
 //compile the graph
 const compiledGraph = graph.compile({
   input: GraphState.input,
