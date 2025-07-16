@@ -1,5 +1,6 @@
-import { graph } from "../langgraph";
-import speechToText from "../utils/stt";
+import { graph } from "../langgraph/index.js";
+import speechToText from "../utils/stt.js";
+import textToSpeech from "../utils/tts.js";
 
 export const chatHandler = async (req, res) => {
   try {
@@ -18,7 +19,19 @@ export const chatHandler = async (req, res) => {
     const aiResponse = response.response || "Sorry, I didn't understand that.";
     console.log(`AI Response: ${aiResponse}`);
     //converting aiResponse to speech
-    
-    res.status(200).json({ response: aiResponse });
-  } catch (error) {}
+    const audioResponse = await textToSpeech(aiResponse);
+    if (!audioResponse) {
+      return res
+        .status(500)
+        .json({ error: "Failed to convert text to speech" });
+    }
+    res.status(200).json({
+      userText: userInput,
+      aiText: aiResponse,
+      audio: `/audio/${path.basename(audioPath)}`,
+    });
+  } catch (error) {
+    console.error("Error in chatHandler:", error);
+    res.status(500).json({ error: "Internal server error in chatHandler" });
+  }
 };
