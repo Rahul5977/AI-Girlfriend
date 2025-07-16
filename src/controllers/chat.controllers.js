@@ -15,20 +15,27 @@ export const chatHandler = async (req, res) => {
     }
     console.log(`User Input: ${userInput}`);
     // sending this userInput to langgraph node
-    const response = await graph.invoke({ userId, input: userInput });
-    const aiResponse = response.response || "Sorry, I didn't understand that.";
-    console.log(`AI Response: ${aiResponse}`);
-    //converting aiResponse to speech
-    const audioResponse = await textToSpeech(aiResponse);
-    if (!audioResponse) {
-      return res
-        .status(500)
-        .json({ error: "Failed to convert text to speech" });
+    const stream = await graph.stream({ userId, input: userInput });
+    let responses = [];
+    let audioFiles = [];
+    let count = 1;
+
+    for await (const state of stream) {
+      if (state.response) {
+        responses.push(state.response);
+        const audioPath = await textToSpeech(
+          state.response,
+          `${userId}_${count}`
+        );
+        audioFiles.push(`/audio/${path.basename(audioPath)}`);
+        count++;
+      }
     }
     res.status(200).json({
       userText: userInput,
-      aiText: aiResponse,
-      audio: `/audio/${path.basename(audioPath)}`,
+      aiText: responses,
+      audioFiles: audioFiles,
+      message: "Chat processed successfully",
     });
   } catch (error) {
     console.error("Error in chatHandler:", error);
