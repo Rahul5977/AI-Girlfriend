@@ -1,6 +1,8 @@
-import e from "express";
+import express from "express";
 
-export const registerUser = async (req, res) => {};
+export const registerUser = async (req, res) => {
+    
+};
 export const verifyEmail = async (req, res) => {};
 export const loginUser = async (req, res) => {};
 export const forgotPassword = async (req, res) => {};
